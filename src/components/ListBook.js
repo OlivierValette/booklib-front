@@ -24,7 +24,7 @@ class ListBooks extends Component {
         if (this.state.books.length === 0) {
             return <div>Chargement en cours...</div>
         }
-        const items = this.state.books.map( books => <CardBook key={books.id} book={books} /> );
+        const items = this.state.books.map( book => <CardBook key={book.id} book={book} /> );
         return (
             <div>
                 {items}
