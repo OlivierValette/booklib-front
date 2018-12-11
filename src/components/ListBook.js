@@ -26,7 +26,7 @@ class ListBooks extends Component {
         }
         const items = this.state.books.map( book => <CardBook key={book.id} book={book} /> );
         return (
-            <div>
+            <div >
                 {items}
             </div>
         );

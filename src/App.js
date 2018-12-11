@@ -12,7 +12,7 @@ class App extends Component {
   render() {
 
     return (
-      <div className={"container"}>
+      <div className="container">
         <ListBooks idSelected={id => this.setState( {idBook: id} )}/>
       </div>
     );
