@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import CardBook from "./CardBook";
+import FilterBook from "./FilterBook";
 
 class ListBooks extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { books: [] };
+        this.state = {
+            allBooks: [],
+            selectedBooks: []
+        };
     }
 
     componentDidMount() {
@@ -17,18 +21,35 @@ class ListBooks extends Component {
                 }
         })
             .then(response => response.json())
-            .then(data => this.setState({books: data}))
+            .then(data => this.setState({allBooks: data}))
     }
 
+    /*
+    filterBooks = (bookFilter) => {
+        let filterBooks = this.state.allBooks;
+        filterBooks = filterBooks.filter( (allBooks) => {
+            let name = allBooks.firstName.toLowerCase() + allBooks.lastName.toLowerCase()
+            return name.indexOf(
+                bookFilter.toLowerCase()) !== -1
+        });
+        this.setState({
+            selectedBooks: filterBooks
+        });
+    }
+    */
+
     render() {
-        if (this.state.books.length === 0) {
+        if (this.state.allBooks.length === 0) {
             return <div>Chargement en cours...</div>
         }
-        const items = this.state.books.map( book => <CardBook key={book.id} book={book} /> );
+        const items = this.state.allBooks.map( book => <CardBook key={book.id} book={book} /> );
         return (
-            <div >
-                {items}
-            </div>
+            <React.Fragment>
+                <FilterBook/>
+                <div className="row">
+                    {items}
+                </div>
+            </React.Fragment>
         );
     }
 }

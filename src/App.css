@@ -1,0 +1,16 @@
+.card {
+    margin: 1em;
+    height: 450px;
+}
+
+.card img {
+    height: 250px;
+}
+
+.card h3 {
+    font-size: 20px;
+}
+
+.card .book-infos {
+    margin-bottom: 10px;
+}
