@@ -3,10 +3,7 @@ import React, {Component} from 'react';
 class CardBook extends Component {
     render() {
         const { book } = this.props;
-        const categories = book.category.map(cat =>
-                                            <li key={cat.id}>
-                                                <span className="list-inline-item badge badge-primary">{cat.name}</span>
-                                            </li>);
+        const categories = book.category.map(cat => <span key={cat.id} className="list-inline-item badge badge-primary">{cat.name}</span>);
 
         return (
             <div className="card" style={{width: '15rem'}}>
@@ -17,7 +14,7 @@ class CardBook extends Component {
                         <span className="label label-info">
                             {book.author.firstname} {book.author.lastname}
                         </span>
-                        <ul className="list-inline">Catégories : {categories}</ul>
+                        <p>Catégories : {categories}</p>
                     </div>
                 </div>
             </div>
