@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ListBooks from "./components/ListBook";
+import Contact from "./components/Contact";
+import Menu from "./components/Menu";
 
 class App extends Component {
 
@@ -10,10 +13,11 @@ class App extends Component {
   }
 
   render() {
-
     return (
       <div className="container">
-        <ListBooks idSelected={id => this.setState( {idBook: id} )}/>
+        <Route component={Menu}/>
+        <Route exact path="/" component={ListBooks} />
+        <Route path="/contact" component={Contact} />
       </div>
     );
   }
