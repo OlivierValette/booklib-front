@@ -21,14 +21,6 @@ class FilterBook extends Component {
             .then(data => this.setState({categories: data}))
         ;
     }
-/*
-    handleChange = (e) => {
-        this.setState({
-            catBook: e.target.value
-        });
-        this.props.onChange(event.target.value);
-    }
-*/
 
     render() {
 
@@ -36,9 +28,10 @@ class FilterBook extends Component {
 
         return (
             <div className="form-group">
-                <label htmlFor="filter">Sélectionner une catégorie :&nbsp;</label>
-                <select name="category" id="">
-                     {categories}
+                <label htmlFor="filter">Filtrer les résultats sur la catégorie :&nbsp;</label>
+                <select name="category" onChange={e => this.props.handleFilters({category: e.target.value} )}>
+                    <option value="0">Toutes les catégories</option>
+                    {categories}
                 </select>
             </div>
         )

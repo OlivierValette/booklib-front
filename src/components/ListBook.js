@@ -7,8 +7,8 @@ class ListBooks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allBooks: [],
-            selectedBooks: []
+            books: [],
+            filters: []
         };
     }
 
@@ -21,34 +21,45 @@ class ListBooks extends Component {
                 }
         })
             .then(response => response.json())
-            .then(data => this.setState({allBooks: data}))
+            .then(data => this.setState({books: data}));
     }
 
-    /*
-    filterBooks = (bookFilter) => {
-        let filterBooks = this.state.allBooks;
-        filterBooks = filterBooks.filter( (allBooks) => {
-            let name = allBooks.firstName.toLowerCase() + allBooks.lastName.toLowerCase()
-            return name.indexOf(
-                bookFilter.toLowerCase()) !== -1
-        });
-        this.setState({
-            selectedBooks: filterBooks
-        });
+    handleFilters (filters) {
+        this.setState({ filters: filters });
     }
-    */
 
     render() {
-        if (this.state.allBooks.length === 0) {
+        if (this.state.books.length === 0) {
             return <div>Chargement en cours...</div>
         }
-        const items = this.state.allBooks.map( book => <CardBook key={book.id} book={book} /> );
+
+        const filteredBooks = this.state.books.filter(book => {
+            let result = false;
+            if (this.state.filters.category && this.state.filters.category != 0) {
+                for (let i = 0; i < book.category.length; i++) {
+                    if (book.category[i].id == this.state.filters.category) {
+                        result = true;
+                    }
+                }
+            } else {
+                result = true;
+            }
+            return result;
+        });
+        const items = filteredBooks.map( book => <CardBook key={book.id} book={book} /> );
+
         return (
             <React.Fragment>
-                <FilterBook/>
-                <div className="row">
-                    {items}
+            <div className="row">
+                <div className="col-sm-3">
+                    <FilterBook handleFilters={filters => this.handleFilters(filters)}/>
                 </div>
+                <div className="col-sm-9">
+                    <div className="row">
+                        {items}
+                    </div>
+                </div>
+            </div>
             </React.Fragment>
         );
     }
